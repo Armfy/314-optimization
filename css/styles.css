@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
 :root {
   --bg:#0f1226;
   --fg:#E8ECF1;
@@ -9,9 +8,7 @@
   --card:#15193A;
   --shadow:rgba(0,0,0,0.45);
 }
-
 * { box-sizing:border-box; }
-
 html, body {
   margin:0;
   padding:0;
@@ -19,20 +16,16 @@ html, body {
   color:var(--fg);
   font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
-
 .container {
   width:min(1200px,92%);
   margin:0 auto;
 }
-
 a {
   color:var(--fg);
   text-decoration:none;
   opacity:.9;
 }
 a:hover { opacity:1; }
-
-/* Topbar & nav */
 .topbar {
   position:sticky;
   top:0;
@@ -53,8 +46,6 @@ a:hover { opacity:1; }
 }
 .logo span { color:var(--accent); }
 .menu { display:flex; gap:22px; }
-
-/* Hero */
 .hero {
   padding:90px 0 40px;
   background:
@@ -88,16 +79,12 @@ a:hover { opacity:1; }
   transform:translateY(-2px);
   box-shadow:0 28px 60px rgba(124,92,255,.45);
 }
-
-/* Sections génériques */
 .section {
   padding:60px 0;
 }
 .section h2 {
   margin:0 0 20px;
 }
-
-/* Galerie */
 .gallery .grid {
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -119,8 +106,6 @@ a:hover { opacity:1; }
 .card img.loaded {
   opacity:1;
 }
-
-/* Features */
 .features-grid {
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -136,18 +121,15 @@ a:hover { opacity:1; }
   font-size:28px;
 }
 
-/* Challenges */
 .challenges ol {
   line-height:1.7;
 }
 
-/* Footer */
 .footer {
   padding:30px 0;
   border-top:1px solid rgba(255,255,255,.08);
   color:#c9d1d9;
 }
-
 .card, .feature, .cta {
   box-shadow:
     0 2px 4px rgba(0,0,0,.14),

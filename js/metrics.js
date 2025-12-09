@@ -9,18 +9,16 @@
     clsEntries: [],
     longTasks: 0,
     longTasksTime: 0,
-    totalBlockingTime: 0, // approx: somme (longTask - 50ms)
+    totalBlockingTime: 0,
     resources: [],
     totalRequests: 0,
     totalBytes: 0,
     nav: null
   };
 
-  // Helper: formatters
   const fmtMs = v => (v==null?'-':v.toFixed(0)+' ms');
   const fmtKB = v => (v==null?'-':(v/1024).toFixed(1)+' KB');
 
-  // Observe FCP (first-contentful-paint)
   try{
     const poPaint = new PerformanceObserver((list)=>{
       for(const e of list.getEntries()){
@@ -34,7 +32,6 @@
     poPaint.observe({ type:'paint', buffered:true });
   }catch(err){}
 
-  // Observe LCP (largest-contentful-paint)
   try{
     const poLcp = new PerformanceObserver((list)=>{
       for(const e of list.getEntries()){
@@ -48,7 +45,6 @@
     });
   }catch(err){}
 
-  // Observe CLS (cumulative layout shift)
   try{
     const poCls = new PerformanceObserver((list)=>{
       for(const e of list.getEntries()){
@@ -62,7 +58,6 @@
     poCls.observe({ type:'layout-shift', buffered:true });
   }catch(err){}
 
-  // Observe Long Tasks => approx TBT = somme(max(0, duration-50ms))
   try{
     const poLT = new PerformanceObserver((list)=>{
       for(const e of list.getEntries()){
@@ -78,9 +73,8 @@
   function collectResources(){
     const entries = performance.getEntriesByType('resource');
     state.resources = entries;
-    state.totalRequests = entries.length + 1; // +1 pour le document HTML
+    state.totalRequests = entries.length + 1;
 
-    // Try transferSize/encodedBodySize; fallback à encoded if transfer is 0; sinon unknown
     let total = 0;
     for(const r of entries){
       const bytes = (r.transferSize && r.transferSize>0) ? r.transferSize : (r.encodedBodySize||0);
@@ -94,7 +88,6 @@
     if(nav) state.nav = nav;
   }
 
-  // UI panel
   const panel = document.createElement('div');
   panel.setAttribute('id', 'perf-panel');
   Object.assign(panel.style, {
@@ -138,7 +131,6 @@
     $('#m-req').textContent = String(state.totalRequests||'-');
     $('#m-bytes').textContent = state.totalBytes ? fmtKB(state.totalBytes) : '-';
 
-    // Expose pour comparaison avant/après
     window.__metrics = {
       fcp: state.fcp, lcp: state.lcp, cls: state.cls,
       tbtApprox: state.totalBlockingTime,
@@ -148,10 +140,8 @@
     };
   }
 
-  // Actions
   document.addEventListener('click', (e)=>{
     if(e.target && e.target.id==='perf-refresh'){
-      // Forcer une collecte complète (post-load)
       update();
     }
     if(e.target && e.target.id==='perf-close'){
@@ -159,7 +149,6 @@
     }
   });
 
-  // Mise à jour initiale après load pour disposer des ressources
   addEventListener('load', ()=>{
     setTimeout(update, 0);
   });
