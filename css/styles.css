@@ -147,3 +147,10 @@ a:hover { opacity:1; }
   border-top:1px solid rgba(255,255,255,.08);
   color:#c9d1d9;
 }
+
+.card, .feature, .cta {
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.14),
+    0 8px 24px rgba(0,0,0,.22),
+    0 24px 60px rgba(0,0,0,.18);
+}
